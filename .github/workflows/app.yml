@@ -1,1 +1,24 @@
 
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Main
+      run: |
+        docker pull danriti/nginx-gunicorn-flask
+        docker run -d -p 80:80 danriti/nginx-gunicorn-flask
+        docker ps
